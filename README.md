@@ -1,1 +1,1 @@
-# skinai
+# skinai chatbot
