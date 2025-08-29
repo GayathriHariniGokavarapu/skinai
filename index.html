@@ -1,247 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skincare Expert - Multilingual Chatbot</title>
-    
-    <!-- Bootstrap CSS with Replit theme -->
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
-</head>
-<body>
-    <div class="container-fluid">
-        <!-- Header -->
-        <header class="py-4 text-center border-bottom">
-            <div class="container">
-                <h1 class="display-4 mb-2">
-                    <i class="fas fa-spa text-info me-3"></i>
-                    Skincare Expert
-                </h1>
-                <p class="lead">Your multilingual skincare consultant</p>
-                <p class="text-muted">Ask questions in English or Telugu • Get personalized skincare advice</p>
-            </div>
-        </header>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-        <!-- Main Content -->
-        <main class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <!-- Chat Section - Hidden by default -->
-                    <div id="mainChatSection" class="card mb-4 d-none">
-                        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
-                            <h3 class="h5 mb-0">
-                                <i class="fas fa-robot me-2"></i>
-                                Chat with Your Skincare Expert
-                            </h3>
-                            <button id="closeChatSection" class="btn btn-sm btn-outline-light">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div class="card-body p-0">
-                            <div id="chatMessages" class="main-chat-messages">
-                                <div class="message bot-message">
-                                    <div class="message-content">
-                                        <i class="fas fa-robot me-2"></i>
-                                        Hi! I'm your skincare assistant. Ask me anything about skincare in English or Telugu!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="input-group">
-                                <input type="text" id="mainChatInput" class="form-control" 
-                                       placeholder="Ask your skincare question or upload an image...">
-                                <button id="cameraBtn" class="btn btn-outline-info" type="button" title="Take Photo">
-                                    <i class="fas fa-camera"></i>
-                                </button>
-                                <button id="uploadBtn" class="btn btn-outline-info" type="button" title="Upload Image">
-                                    <i class="fas fa-upload"></i>
-                                </button>
-                                <button id="mainChatSend" class="btn btn-info" type="button">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                            <input type="file" id="imageUpload" accept="image/*" class="d-none">
-                            <video id="cameraPreview" class="d-none" autoplay playsinline></video>
-                            <canvas id="cameraCanvas" class="d-none"></canvas>
-                            <div id="imagePreview" class="mt-2 d-none">
-                                <img id="selectedImage" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
-                                <div class="mt-2">
-                                    <button id="sendImageBtn" class="btn btn-success btn-sm me-2">
-                                        <i class="fas fa-paper-plane me-1"></i>Analyze Image
-                                    </button>
-                                    <button id="cancelImageBtn" class="btn btn-secondary btn-sm">
-                                        <i class="fas fa-times me-1"></i>Cancel
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="cameraControls" class="mt-2 d-none">
-                                <button id="captureBtn" class="btn btn-success btn-sm me-2">
-                                    <i class="fas fa-camera me-1"></i>Capture
-                                </button>
-                                <button id="cancelCameraBtn" class="btn btn-secondary btn-sm">
-                                    <i class="fas fa-times me-1"></i>Cancel
-                                </button>
-                            </div>
-                            <div id="mainChatLoading" class="text-center mt-2 d-none">
-                                <small class="text-muted">
-                                    <i class="fas fa-spinner fa-spin me-1"></i>
-                                    Processing your question...
-                                </small>
-                            </div>
-                        </div>
-                    </div>
+    <!-- CSS inside same file -->
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f9;
+        color: #333;
+      }
 
-                    <!-- Welcome Section -->
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <h2 class="card-title h4 mb-3">Welcome to Your Skincare Journey</h2>
-                            <p class="card-text">
-                                I'm here to help with all your skincare questions! Whether you're dealing with 
-                                oily skin, acne, dry skin, or looking for the perfect routine, I can provide 
-                                personalized advice and product recommendations.
-                            </p>
-                            <p class="card-text text-info">
-                                <i class="fas fa-language me-2"></i>
-                                You can chat with me in English or Telugu - I'll understand and respond in your preferred language.
-                            </p>
-                            <div class="mt-4">
-                                <button id="startChatBtn" class="btn btn-info btn-lg">
-                                    <i class="fas fa-comments me-2"></i>
-                                    Start Chat with Skincare Expert
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+      header {
+        background: #4CAF50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
 
-                    <!-- Popular Topics -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="h5 mb-0">
-                                <i class="fas fa-star me-2"></i>
-                                Popular Topics
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="d-grid">
-                                        <button class="btn btn-outline-secondary text-start quick-question" 
-                                                data-question="How do I take care of oily skin?">
-                                            <i class="fas fa-droplet me-2"></i>
-                                            Oily Skin Care
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-grid">
-                                        <button class="btn btn-outline-secondary text-start quick-question"
-                                                data-question="How do I treat acne?">
-                                            <i class="fas fa-ban me-2"></i>
-                                            Acne Treatment
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-grid">
-                                        <button class="btn btn-outline-secondary text-start quick-question"
-                                                data-question="How do I treat dry skin?">
-                                            <i class="fas fa-hand-holding-water me-2"></i>
-                                            Dry Skin Care
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-grid">
-                                        <button class="btn btn-outline-secondary text-start quick-question"
-                                                data-question="Why is sunscreen important?">
-                                            <i class="fas fa-sun me-2"></i>
-                                            Sunscreen Guide
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+      nav a {
+        margin: 0 15px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+      }
 
-        <!-- Footer -->
-        <footer class="border-top py-4 mt-5">
-            <div class="container text-center">
-                <p class="text-muted mb-2">
-                    <i class="fas fa-shield-alt me-2"></i>
-                    Professional skincare advice powered by AI
-                </p>
-                <small class="text-muted">
-                    For serious skin conditions, please consult a dermatologist
-                </small>
-            </div>
-        </footer>
-    </div>
+      main {
+        padding: 20px;
+      }
 
-    <!-- Chat Widget -->
-    <div id="chatWidget" class="chat-widget">
-        <!-- Chat Button -->
-        <button id="chatToggle" class="chat-toggle btn btn-info rounded-circle">
-            <i class="fas fa-comments"></i>
-        </button>
+      section {
+        margin-bottom: 20px;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      }
 
-        <!-- Chat Window -->
-        <div id="chatWindow" class="chat-window card d-none">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h6 class="mb-0">
-                    <i class="fas fa-robot me-2"></i>
-                    Skincare Assistant
-                </h6>
-                <button id="chatClose" class="btn btn-sm btn-outline-light">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="card-body p-0">
-                <div id="chatMessages" class="chat-messages">
-                    <div class="message bot-message">
-                        <div class="message-content">
-                            <i class="fas fa-robot me-2"></i>
-                            Hi! I'm your skincare assistant. Ask me anything about skincare in English or Telugu!
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-footer">
-                <div class="input-group">
-                    <input type="text" id="chatInput" class="form-control" 
-                           placeholder="Type your skincare question...">
-                    <button id="widgetCameraBtn" class="btn btn-outline-info btn-sm" type="button" title="Take Photo">
-                        <i class="fas fa-camera"></i>
-                    </button>
-                    <button id="widgetUploadBtn" class="btn btn-outline-info btn-sm" type="button" title="Upload Image">
-                        <i class="fas fa-upload"></i>
-                    </button>
-                    <button id="chatSend" class="btn btn-info" type="button">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div id="chatLoading" class="text-center mt-2 d-none">
-                    <small class="text-muted">
-                        <i class="fas fa-spinner fa-spin me-1"></i>
-                        Processing your question...
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
+      footer {
+        background: #222;
+        color: #ddd;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Container -->
+    <header>
+      <h1>Welcome to My Website</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
-</body>
+    <main>
+      <section>
+        <h2>About</h2>
+        <p>This is a simple front-end website using HTML, CSS and JavaScript.</p>
+      </section>
+      <section>
+        <h2>Features</h2>
+        <ul>
+          <li>Responsive design</li>
+          <li>Simple navigation</li>
+          <li>Clean UI</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 My Website. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript inside same file -->
+    <script>
+      window.onload = () => {
+        console.log("Website loaded successfully!");
+        alert("Welcome to My Website! 🚀");
+      };
+    </script>
+  </body>
 </html>
